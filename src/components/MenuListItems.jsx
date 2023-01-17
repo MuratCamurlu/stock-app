@@ -46,21 +46,28 @@ const icons = [
   {
     title: "Admin Panel",
     icon: <SupervisorAccountIcon />,
-    url: "https://10001.fullstack.clarusway.com/admin",
+    url: "https://14136.fullstack.clarusway.com/admin",
   },
 ];
 const MenuListItems = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <List>
-        {[].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+        {icons?.map((item, index) => (
+          <ListItem key={index} disablePadding>
+            {item.url.includes("http") && (
+              <ListItemButton to={item.url}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.title} />
+              </ListItemButton>
+            )}
+            {!item.url.includes("http") && (
+              <ListItemButton onClick={() => navigate(item.url)}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.title} />
+              </ListItemButton>
+            )}
           </ListItem>
         ))}
       </List>
