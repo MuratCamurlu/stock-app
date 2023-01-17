@@ -49,6 +49,10 @@ const icons = [
     url: "https://14136.fullstack.clarusway.com/admin",
   },
 ];
+const iconStyle = {
+  color: "#eee",
+  "&:hover": { color: "red" },
+};
 const MenuListItems = () => {
   const navigate = useNavigate();
   return (
@@ -57,14 +61,14 @@ const MenuListItems = () => {
         {icons?.map((item, index) => (
           <ListItem key={index} disablePadding>
             {item.url.includes("http") && (
-              <ListItemButton to={item.url}>
-                <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemButton to={item.url} sx={iconStyle}>
+                <ListItemIcon sx={iconStyle}>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.title} />
               </ListItemButton>
             )}
             {!item.url.includes("http") && (
-              <ListItemButton onClick={() => navigate(item.url)}>
-                <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemButton sx={iconStyle} onClick={() => navigate(item.url)}>
+                <ListItemIcon sx={iconStyle}>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.title} />
               </ListItemButton>
             )}

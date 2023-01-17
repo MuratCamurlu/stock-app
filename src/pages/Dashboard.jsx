@@ -10,10 +10,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import MenuListItems from "../components/MenuListItems";
-
+import blueGrey from "@mui/material/colors/blueGrey";
+import { useSelector } from "react-redux";
+import useAuthCalls from "../hooks/useAuthCalls";
+import Button from "@mui/material/Button";
 const drawerWidth = 200;
 
 function Dashboard(props) {
+  const { currentUser } = useSelector((state) => state.auth);
+  const { logout } = useAuthCalls();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -52,9 +57,14 @@ function Dashboard(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+            STOCK APP
           </Typography>
+          {currentUser && (
+            <Button color="inherit" onClick={() => logout()}>
+              Logout
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
       <Box
@@ -69,13 +79,18 @@ function Dashboard(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+            },
+          }}
+          PaperProps={{
+            sx: {
+              backgroundColor: blueGrey[900],
             },
           }}
         >
@@ -88,6 +103,11 @@ function Dashboard(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+            },
+          }}
+          PaperProps={{
+            sx: {
+              backgroundColor: blueGrey[900],
             },
           }}
           open
