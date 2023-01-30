@@ -2,12 +2,13 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getSuccess, fetchFail, fetchStart } from "../features/stockSlice";
+import { fetchFail, getSuccess, fetchStart } from "../features/stockSlice";
 
 const Firms = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
   const BASE_URL = "https://14136.fullstack.clarusway.com/";
+
   const getFirms = async () => {
     const url = "firms";
     dispatch(fetchStart());
@@ -21,6 +22,7 @@ const Firms = () => {
       dispatch(fetchFail());
     }
   };
+
   useEffect(() => {
     getFirms();
   }, []);
